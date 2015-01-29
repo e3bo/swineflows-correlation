@@ -6,9 +6,10 @@ library(fields)
 
 ## Get case data
 
+dataDir <- '/root/data'
 
 tmpf <- function(){
-  fn <- file.path('PEDvweeklyreport-state-ts-01-08-14.csv')
+  fn <- file.path(dataDir, 'PEDvweeklyreport-state-ts-01-08-14.csv')
   ret <- read.csv(fn)
   ret[1:9, c('CA', 'MD', 'NE', 'WY')] <- 0
   key <- order(colnames(ret)[-c(1:2)])
@@ -95,7 +96,7 @@ dev.off()
 
 ## Get shared-border neighborhoods
 
-nbEdgelist <- read.csv('state_neighbors_fips.txt', header=FALSE)
+nbEdgelist <- read.csv(file.path(dataDir, 'state_neighbors_fips.txt'), header=FALSE)
 data(state.fips)
 g <- graph.data.frame(nbEdgelist, directed=FALSE)
 g <- simplify(g)
@@ -109,7 +110,7 @@ nhood <- as.matrix(g2[nms,nms])
 
 ## Get shipment flows
 
-ep <- read.csv('edge-proportionalities.csv')
+ep <- read.csv(file.path(dataDir, 'edge-proportionalities.csv'))
 key <- match(colnames(observed), colnames(ep))
 ep <- ep[key, key]
 rownames(ep) <- colnames(ep)
