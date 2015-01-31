@@ -10,12 +10,13 @@ ddir="${topd}/data"
 sdir="${topd}/src"
 hdir="/root"
 
-docker run -v ${ddir}:${hdir}/data:ro \
+docker run -it -v ${ddir}:${hdir}/data:ro \
        -v ${sdir}:${hdir}/src:ro \
        -v ${wkdir}:${hdir}/work \
-       eamon/swineflows-correlation ${hdir}/src/run-analysis
+       eamon/swineflows-correlation
 
-# Currently, $wdir and its contents are always owned by root, so
 user=$(id -u)
 group=$(id -g)
+
+# Currently, $wdir and its contents are always owned by root, so
 sudo chown -hR ${user}:${group} $wkdir 
