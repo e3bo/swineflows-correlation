@@ -1,3 +1,0 @@
-#!/bin/bash
-
-cd /root/work && Rscript --vanilla /root/src/mantel-testing.r 1>stdout 2>stderr

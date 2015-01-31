@@ -1,0 +1,8 @@
+#!/bin/bash
+
+LC_COLLATE=C
+export LC_COLLATE
+LC_TIME=C
+export LC_TIME
+
+cd ~/work && Rscript --vanilla ../src/mantel-testing.r 1>stdout 2>stderr

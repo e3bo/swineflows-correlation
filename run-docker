@@ -2,20 +2,21 @@
 
 set -e
 
-topd=$(pwd)/root
+topd=$(pwd)
 tstamp=$(date +%Y-%m-%d_%H-%M-%S)
 rnd=$RANDOM
 wkdir="${topd}/work-${tstamp}-${rnd}"
 ddir="${topd}/data"
 sdir="${topd}/src"
+hdir="/root"
 
-docker run -v "${ddir}":/root/data:ro \
-       -v "${sdir}":/root/src:ro \
-       -v "${wkdir}":/root/work \
-       eamon/swineflows-correlation /root/src/run-analysis
+docker run -v ${ddir}:${hdir}/data:ro \
+       -v ${sdir}:${hdir}/src:ro \
+       -v ${wkdir}:${hdir}/work \
+       eamon/swineflows-correlation ${hdir}/src/run-analysis
 
 user=$(id -u)
 group=$(id -g)
 
 # Currently, $wdir and its contents are always owned by root, so
-sudo chown -hR ${user}:${group} $wkdir 
+chown -hR ${user}:${group} $wkdir 

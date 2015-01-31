@@ -4,9 +4,12 @@ library(vegan)
 library(RColorBrewer)
 library(fields)
 
+Sys.setlocale("LC_TIME", "C") #Needed for identical()
+Sys.setlocale("LC_COLLATE", "C")
+
 ## Get case data
 
-dataDir <- '/root/data'
+dataDir <- '../data'
 
 tmpf <- function(){
   fn <- file.path(dataDir, 'PEDvweeklyreport-state-ts-01-08-14.csv')
